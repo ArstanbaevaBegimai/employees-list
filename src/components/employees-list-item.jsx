@@ -11,6 +11,7 @@ const EmployeesListItem = (props) => {
     onToggleRise,
     increase,
     rise,
+    onSalaryChange,
   } = props;
 
   let classNames = "list-group-item d-flex justify-content-between";
@@ -23,6 +24,14 @@ const EmployeesListItem = (props) => {
     classNames += " like";
   }
 
+  const [newSalary, setNewSalary] = useState(salary);
+
+  function updateSalary(e) {
+    const changedSalary = +e.target.value.slice(0, -1);
+    setNewSalary(changedSalary);
+    onSalaryChange(name, changedSalary);
+  }
+
   return (
     <li className={classNames}>
       <span className="list-group-item-label" onClick={onToggleRise}>
@@ -32,6 +41,7 @@ const EmployeesListItem = (props) => {
         type="text"
         className="list-group-item-input"
         defaultValue={salary + "$"}
+        onChange={updateSalary}
       />
       <div className="d-flex justify-content-center align-items-center">
         <button

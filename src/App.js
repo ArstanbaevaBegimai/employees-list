@@ -48,20 +48,6 @@ const App = () => {
   };
 
   const onToggleIncrease = (id) => {
-    // ! First method
-    // setState((state) => {
-    //   const index = state.findIndex((elem) => elem.id === id);
-    //   const old = state[index];
-    //   const newItem = { ...old, increase: !old.increase };
-    //   const newArr = [
-    //     ...state.slice(0, index),
-    //     newItem,
-    //     ...state.slice(index + 1),
-    //   ];
-    //   return newArr;
-    // });
-
-    // ! Second method
     setState((state) => {
       const newArr = state.map((item) => {
         if (item.id === id) {
@@ -114,6 +100,18 @@ const App = () => {
     setFiltered(filtered);
   };
 
+  function onSalaryChange(name, salary) {
+    setState((state) =>
+      state.map((elem) => {
+        if (elem.name === name) {
+          return { ...elem, salary };
+        }
+        return elem;
+      })
+    );
+  }
+  console.log(state);
+
   const visibleData = filterPost(searchEmployee(state, term), filtered);
 
   return (
@@ -130,6 +128,7 @@ const App = () => {
         onDelete={deleteItem}
         onToggleIncrease={onToggleIncrease}
         onToggleRise={onToggleRise}
+        onSalaryChange={onSalaryChange}
       />
       <EmployeesAddForm data={state} onAdd={addEmployee} />
     </div>
